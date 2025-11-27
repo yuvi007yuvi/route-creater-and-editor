@@ -21,51 +21,52 @@ export function PropertiesPanel() {
 
     return (
         <div className="flex flex-col h-full">
-            <div className="p-4 border-b font-semibold bg-muted/20">
+            <div className="p-4 border-b border-slate-200 font-semibold bg-slate-50 text-slate-900">
                 Properties
             </div>
 
             <div className="p-4 space-y-4">
                 <div className="space-y-2">
-                    <label className="text-sm font-medium">Name</label>
+                    <label className="text-sm font-medium text-slate-700">Name</label>
                     <Input
                         defaultValue={selectedFeature.properties?.name || ''}
                         placeholder="Feature Name"
+                        className="bg-white border-slate-200 text-slate-900"
                     />
                 </div>
 
                 <div className="space-y-2">
-                    <label className="text-sm font-medium">Description</label>
+                    <label className="text-sm font-medium text-slate-700">Description</label>
                     <textarea
-                        className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="flex min-h-[80px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-slate-900"
                         defaultValue={selectedFeature.properties?.description || ''}
                         placeholder="Add a description..."
                     />
                 </div>
 
-                <div className="pt-4 border-t">
-                    <h4 className="text-sm font-medium mb-3">Styling</h4>
+                <div className="pt-4 border-t border-slate-200">
+                    <h4 className="text-sm font-medium mb-3 text-slate-900">Styling</h4>
                     <div className="grid grid-cols-2 gap-2">
                         <div className="space-y-1">
-                            <label className="text-xs text-muted-foreground">Stroke</label>
+                            <label className="text-xs text-slate-500">Stroke</label>
                             <div className="flex items-center gap-2">
                                 <input type="color" className="h-8 w-8 rounded cursor-pointer border-0" />
-                                <Input className="h-8" placeholder="#000000" />
+                                <Input className="h-8 bg-white border-slate-200 text-slate-900" placeholder="#000000" />
                             </div>
                         </div>
                         <div className="space-y-1">
-                            <label className="text-xs text-muted-foreground">Fill</label>
+                            <label className="text-xs text-slate-500">Fill</label>
                             <div className="flex items-center gap-2">
                                 <input type="color" className="h-8 w-8 rounded cursor-pointer border-0" />
-                                <Input className="h-8" placeholder="#ffffff" />
+                                <Input className="h-8 bg-white border-slate-200 text-slate-900" placeholder="#ffffff" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="mt-auto p-4 border-t bg-muted/20">
-                <Button className="w-full">Save Changes</Button>
+            <div className="mt-auto p-4 border-t border-slate-200 bg-slate-50">
+                <Button className="w-full bg-blue-600 hover:bg-blue-500 text-white">Save Changes</Button>
             </div>
         </div>
     );

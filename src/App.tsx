@@ -60,13 +60,13 @@ function App() {
             {currentProject ? (
                 activeModule === 'editor' ? (
                     <div className="w-full h-full flex flex-col">
-                        <div className="h-14 border-b border-slate-800 bg-slate-900 flex items-center px-4 justify-between shrink-0">
+                        <div className="h-14 border-b border-slate-200 bg-white flex items-center px-4 justify-between shrink-0">
                             <div className="flex items-center gap-2">
-                                <button onClick={closeProject} className="text-sm font-medium hover:underline text-slate-400 hover:text-white">
+                                <button onClick={closeProject} className="text-sm font-medium hover:underline text-slate-500 hover:text-slate-900">
                                     &larr; Back to Projects
                                 </button>
-                                <div className="h-4 w-px bg-slate-700 mx-2" />
-                                <h2 className="font-semibold text-white">{currentProject.name}</h2>
+                                <div className="h-4 w-px bg-slate-200 mx-2" />
+                                <h2 className="font-semibold text-slate-900">{currentProject.name}</h2>
                             </div>
                             <div className="flex items-center gap-2">
                                 <input
@@ -78,13 +78,13 @@ function App() {
                                 />
                                 <button
                                     onClick={handleImportClick}
-                                    className="text-xs border border-slate-700 text-slate-300 px-3 py-1.5 rounded-md hover:bg-slate-800 hover:text-white transition-colors"
+                                    className="text-xs border border-slate-200 text-slate-600 px-3 py-1.5 rounded-md hover:bg-slate-50 hover:text-slate-900 transition-colors"
                                 >
                                     Import KML
                                 </button>
                                 <button
                                     onClick={handleExport}
-                                    className="text-xs border border-slate-700 text-slate-300 px-3 py-1.5 rounded-md hover:bg-slate-800 hover:text-white transition-colors"
+                                    className="text-xs border border-slate-200 text-slate-600 px-3 py-1.5 rounded-md hover:bg-slate-50 hover:text-slate-900 transition-colors"
                                 >
                                     Export KML
                                 </button>
@@ -94,13 +94,13 @@ function App() {
                             </div>
                         </div>
                         <div className="flex-1 relative flex overflow-hidden">
-                            <div className="w-64 border-r border-slate-800 bg-slate-900 flex flex-col z-10">
+                            <div className="w-64 border-r border-slate-200 bg-white flex flex-col z-10">
                                 <LayerPanel />
                             </div>
                             <div className="flex-1 relative">
                                 <MapCanvas />
                             </div>
-                            <div className="w-80 border-l border-slate-800 bg-slate-900 flex flex-col z-10">
+                            <div className="w-80 border-l border-slate-200 bg-white flex flex-col z-10">
                                 <PropertiesPanel />
                             </div>
                         </div>

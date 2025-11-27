@@ -41,11 +41,11 @@ export function Dashboard({ onOpenProject }: { onOpenProject: (id: string) => vo
     );
 
     return (
-        <div className="p-8 max-w-6xl mx-auto w-full h-full overflow-y-auto bg-slate-950 text-slate-200">
+        <div className="p-8 max-w-6xl mx-auto w-full h-full overflow-y-auto bg-slate-50 text-slate-900">
             <div className="flex justify-between items-center mb-10">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight text-white">Projects</h1>
-                    <p className="text-slate-400 mt-1">Manage your KML maps and routes.</p>
+                    <h1 className="text-3xl font-bold tracking-tight text-slate-900">Projects</h1>
+                    <p className="text-slate-500 mt-1">Manage your KML maps and routes.</p>
                 </div>
                 <Button onClick={() => setIsCreating(true)} size="lg" className="gap-2 bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-900/20 border-0">
                     <Plus size={18} /> New Project
@@ -53,28 +53,28 @@ export function Dashboard({ onOpenProject }: { onOpenProject: (id: string) => vo
             </div>
 
             {isCreating && (
-                <div className="mb-8 p-6 border border-slate-800 rounded-xl bg-slate-900 shadow-xl animate-in fade-in slide-in-from-top-4">
+                <div className="mb-8 p-6 border border-slate-200 rounded-xl bg-white shadow-xl animate-in fade-in slide-in-from-top-4">
                     <form onSubmit={handleCreate} className="flex gap-4 items-end">
                         <div className="flex-1 space-y-2">
-                            <label className="text-sm font-medium text-slate-300">Project Name</label>
+                            <label className="text-sm font-medium text-slate-700">Project Name</label>
                             <Input
                                 autoFocus
                                 value={newProjectName}
                                 onChange={(e) => setNewProjectName(e.target.value)}
                                 placeholder="e.g. City Center Survey"
-                                className="bg-slate-950 border-slate-800 text-white focus:ring-blue-500/50"
+                                className="bg-slate-50 border-slate-200 text-slate-900 focus:ring-blue-500/50 placeholder:text-slate-400"
                             />
                         </div>
                         <Button type="submit" className="bg-blue-600 hover:bg-blue-500 text-white">Create Project</Button>
-                        <Button type="button" variant="ghost" onClick={() => setIsCreating(false)} className="text-slate-400 hover:text-white hover:bg-slate-800">Cancel</Button>
+                        <Button type="button" variant="ghost" onClick={() => setIsCreating(false)} className="text-slate-500 hover:text-slate-900 hover:bg-slate-100">Cancel</Button>
                     </form>
                 </div>
             )}
 
             <div className="relative mb-8">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                 <Input
-                    className="pl-10 h-12 bg-slate-900 border-slate-800 text-white placeholder:text-slate-500 focus:ring-blue-500/50 rounded-xl"
+                    className="pl-10 h-12 bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus:ring-blue-500/50 rounded-xl shadow-sm"
                     placeholder="Search projects..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
@@ -84,11 +84,11 @@ export function Dashboard({ onOpenProject }: { onOpenProject: (id: string) => vo
             {isLoading ? (
                 <div className="text-center py-12 text-slate-500">Loading projects...</div>
             ) : filteredProjects.length === 0 ? (
-                <div className="text-center py-20 border-2 border-dashed border-slate-800 rounded-2xl bg-slate-900/50">
-                    <div className="mx-auto w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center mb-4">
-                        <FolderOpen className="text-slate-500" size={32} />
+                <div className="text-center py-20 border-2 border-dashed border-slate-200 rounded-2xl bg-slate-50/50">
+                    <div className="mx-auto w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+                        <FolderOpen className="text-slate-400" size={32} />
                     </div>
-                    <h3 className="text-lg font-medium text-white">No projects found</h3>
+                    <h3 className="text-lg font-medium text-slate-900">No projects found</h3>
                     <p className="text-slate-500 mt-1">Get started by creating a new project.</p>
                 </div>
             ) : (
@@ -96,19 +96,19 @@ export function Dashboard({ onOpenProject }: { onOpenProject: (id: string) => vo
                     {filteredProjects.map((project) => (
                         <div
                             key={project.id}
-                            className="group border border-slate-800 rounded-xl p-5 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-900/10 transition-all bg-slate-900 cursor-pointer flex flex-col relative overflow-hidden"
+                            className="group border border-slate-200 rounded-xl p-5 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-900/5 transition-all bg-white cursor-pointer flex flex-col relative overflow-hidden"
                             onClick={() => onOpenProject(project.id)}
                         >
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity" />
 
                             <div className="flex justify-between items-start mb-4">
-                                <div className="p-3 bg-slate-800 text-blue-400 rounded-lg group-hover:bg-blue-500/10 group-hover:text-blue-300 transition-colors">
+                                <div className="p-3 bg-blue-50 text-blue-600 rounded-lg group-hover:bg-blue-100 transition-colors">
                                     <MapIcon size={24} />
                                 </div>
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-red-400 hover:bg-red-900/20 -mr-2 -mt-2 transition-all"
+                                    className="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-red-600 hover:bg-red-50 -mr-2 -mt-2 transition-all"
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         if (confirm('Are you sure you want to delete this project?')) {
@@ -120,12 +120,12 @@ export function Dashboard({ onOpenProject }: { onOpenProject: (id: string) => vo
                                 </Button>
                             </div>
 
-                            <h3 className="font-semibold text-xl mb-2 truncate text-white group-hover:text-blue-400 transition-colors" title={project.name}>{project.name}</h3>
-                            <p className="text-sm text-slate-400 line-clamp-2 mb-6 h-10 leading-relaxed">
+                            <h3 className="font-semibold text-xl mb-2 truncate text-slate-900 group-hover:text-blue-600 transition-colors" title={project.name}>{project.name}</h3>
+                            <p className="text-sm text-slate-500 line-clamp-2 mb-6 h-10 leading-relaxed">
                                 {project.description || "No description provided for this project."}
                             </p>
 
-                            <div className="mt-auto flex items-center text-xs text-slate-500 pt-4 border-t border-slate-800">
+                            <div className="mt-auto flex items-center text-xs text-slate-400 pt-4 border-t border-slate-100">
                                 <Clock size={14} className="mr-1.5" />
                                 <span>Updated {formatDate(project.updatedAt)}</span>
                             </div>

@@ -198,14 +198,14 @@ export function AutoRouteModule() {
     const [isPanelExpanded, setIsPanelExpanded] = useState(true);
 
     return (
-        <div className="flex h-full w-full bg-slate-950 text-slate-200 relative">
+        <div className="flex h-full w-full bg-slate-50 text-slate-900 relative">
             {/* Ward Selection Modal */}
             {showWardSelection && (
-                <div className="absolute inset-0 z-[2000] bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-                    <div className="bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden animate-in zoom-in-95 duration-200">
-                        <div className="p-6 border-b border-slate-800">
-                            <h3 className="text-xl font-bold text-white">Select Target Ward</h3>
-                            <p className="text-slate-400 text-sm mt-1">
+                <div className="absolute inset-0 z-[2000] bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
+                    <div className="bg-white border border-slate-200 rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden animate-in zoom-in-95 duration-200">
+                        <div className="p-6 border-b border-slate-100">
+                            <h3 className="text-xl font-bold text-slate-900">Select Target Ward</h3>
+                            <p className="text-slate-500 text-sm mt-1">
                                 The vehicle passed through multiple wards. Which one do you want to process?
                             </p>
                         </div>
@@ -226,10 +226,10 @@ export function AutoRouteModule() {
                                             generateRouteForWard(option.bufferedFeature, points, option.name);
                                         }, 100);
                                     }}
-                                    className="w-full flex items-center justify-between p-4 hover:bg-slate-800 rounded-xl transition-colors group border border-transparent hover:border-slate-700 mb-1"
+                                    className="w-full flex items-center justify-between p-4 hover:bg-slate-50 rounded-xl transition-colors group border border-transparent hover:border-slate-200 mb-1"
                                 >
                                     <div className="text-left">
-                                        <div className="font-medium text-white group-hover:text-blue-400 transition-colors">
+                                        <div className="font-medium text-slate-900 group-hover:text-blue-600 transition-colors">
                                             {option.name}
                                         </div>
                                         <div className="text-xs text-slate-500">
@@ -237,20 +237,20 @@ export function AutoRouteModule() {
                                         </div>
                                     </div>
                                     <div className="text-right">
-                                        <div className="text-lg font-bold text-blue-500">
+                                        <div className="text-lg font-bold text-blue-600">
                                             {option.percentage}%
                                         </div>
-                                        <div className="text-xs text-slate-600">
+                                        <div className="text-xs text-slate-500">
                                             match
                                         </div>
                                     </div>
                                 </button>
                             ))}
                         </div>
-                        <div className="p-4 bg-slate-900 border-t border-slate-800 flex justify-end">
+                        <div className="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
                             <button
                                 onClick={() => { setShowWardSelection(false); setIsProcessing(false); }}
-                                className="px-4 py-2 text-slate-400 hover:text-white transition-colors"
+                                className="px-4 py-2 text-slate-500 hover:text-slate-900 transition-colors"
                             >
                                 Cancel
                             </button>
@@ -260,11 +260,11 @@ export function AutoRouteModule() {
             )}
 
             {/* Control Panel */}
-            <div className={`${isPanelExpanded ? 'w-96' : 'w-0'} border-r border-slate-800 bg-slate-900 flex flex-col transition-all duration-300 relative z-10`}>
+            <div className={`${isPanelExpanded ? 'w-96' : 'w-0'} border-r border-slate-200 bg-white flex flex-col transition-all duration-300 relative z-10`}>
                 {/* Toggle Button */}
                 <button
                     onClick={() => setIsPanelExpanded(!isPanelExpanded)}
-                    className="absolute -right-3 top-8 bg-slate-800 border border-slate-700 text-slate-400 hover:text-white rounded-full p-1 shadow-lg z-50"
+                    className="absolute -right-3 top-8 bg-white border border-slate-200 text-slate-400 hover:text-slate-900 rounded-full p-1 shadow-lg z-50"
                     title={isPanelExpanded ? "Collapse Panel" : "Expand Panel"}
                 >
                     {isPanelExpanded ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
@@ -272,17 +272,20 @@ export function AutoRouteModule() {
 
                 <div className={`flex flex-col p-6 overflow-y-auto h-full ${!isPanelExpanded && 'hidden'}`}>
                     <div className="mb-8">
-                        <h2 className="text-2xl font-bold text-white mb-2">AI Auto Route</h2>
-                        <p className="text-slate-400 text-sm">Upload vehicle history and ward boundary to automatically generate a route.</p>
+                        <h2 className="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2">
+                            <Zap className="text-blue-600" fill="currentColor" />
+                            Auto Route AI
+                        </h2>
+                        <p className="text-slate-500 text-sm">Upload vehicle history and ward boundary to automatically generate a route.</p>
                     </div>
 
                     {/* Step 1: Uploads */}
                     <div className="space-y-6 mb-8">
                         {/* Vehicle History */}
-                        <div className="p-4 border border-slate-700 border-dashed rounded-xl bg-slate-950/50 hover:bg-slate-800/50 transition-colors">
+                        <div className="p-4 border border-slate-200 border-dashed rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors">
                             <div className="flex justify-between items-start mb-2">
-                                <label className="font-medium text-white">1. Vehicle History</label>
-                                {vehicleHistory ? <CheckCircle2 className="text-green-500" size={18} /> : <AlertCircle className="text-slate-500" size={18} />}
+                                <label className="font-medium text-slate-900">1. Vehicle History</label>
+                                {vehicleHistory ? <CheckCircle2 className="text-green-600" size={18} /> : <AlertCircle className="text-slate-400" size={18} />}
                             </div>
                             <p className="text-xs text-slate-500 mb-4">Upload KML with raw GPS points.</p>
                             <input
@@ -294,17 +297,17 @@ export function AutoRouteModule() {
                             />
                             <button
                                 onClick={() => vehicleInputRef.current?.click()}
-                                className="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-sm flex items-center justify-center gap-2 transition-colors"
+                                className="w-full py-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-lg text-sm flex items-center justify-center gap-2 transition-colors"
                             >
                                 <Upload size={14} /> {vehicleHistory ? 'Change File' : 'Upload KML'}
                             </button>
                         </div>
 
                         {/* Ward Boundary */}
-                        <div className="p-4 border border-slate-700 border-dashed rounded-xl bg-slate-950/50 hover:bg-slate-800/50 transition-colors">
+                        <div className="p-4 border border-slate-200 border-dashed rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors">
                             <div className="flex justify-between items-start mb-2">
-                                <label className="font-medium text-white">2. Ward Boundary</label>
-                                {wardBoundary ? <CheckCircle2 className="text-green-500" size={18} /> : <AlertCircle className="text-slate-500" size={18} />}
+                                <label className="font-medium text-slate-900">2. Ward Boundary</label>
+                                {wardBoundary ? <CheckCircle2 className="text-green-600" size={18} /> : <AlertCircle className="text-slate-400" size={18} />}
                             </div>
                             <p className="text-xs text-slate-500 mb-4">Upload KML with ward polygon.</p>
                             <input
@@ -316,7 +319,7 @@ export function AutoRouteModule() {
                             />
                             <button
                                 onClick={() => wardInputRef.current?.click()}
-                                className="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-sm flex items-center justify-center gap-2 transition-colors"
+                                className="w-full py-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-lg text-sm flex items-center justify-center gap-2 transition-colors"
                             >
                                 <Upload size={14} /> {wardBoundary ? 'Change File' : 'Upload KML'}
                             </button>
@@ -326,10 +329,10 @@ export function AutoRouteModule() {
                     {/* Settings */}
                     <div className="mb-8 space-y-4">
                         {/* Buffer */}
-                        <div className="p-4 bg-slate-900 rounded-xl border border-slate-800">
+                        <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
                             <div className="flex justify-between items-center mb-2">
-                                <label className="font-medium text-white text-sm">Boundary Buffer</label>
-                                <span className="text-blue-400 text-xs font-bold">{bufferRadius}m</span>
+                                <label className="font-medium text-slate-900 text-sm">Boundary Buffer</label>
+                                <span className="text-blue-600 text-xs font-bold">{bufferRadius}m</span>
                             </div>
                             <input
                                 type="range"
@@ -337,7 +340,7 @@ export function AutoRouteModule() {
                                 max="100"
                                 value={bufferRadius}
                                 onChange={(e) => setBufferRadius(parseInt(e.target.value))}
-                                className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                             />
                             <p className="text-xs text-slate-500 mt-2">
                                 Expand ward boundary to include roads on the edge.
@@ -345,10 +348,10 @@ export function AutoRouteModule() {
                         </div>
 
                         {/* Smoothness */}
-                        <div className="p-4 bg-slate-900 rounded-xl border border-slate-800">
+                        <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
                             <div className="flex justify-between items-center mb-2">
-                                <label className="font-medium text-white text-sm">Route Smoothing</label>
-                                <span className="text-blue-400 text-xs font-bold">{(smoothness * 10000).toFixed(0)}</span>
+                                <label className="font-medium text-slate-900 text-sm">Route Smoothing</label>
+                                <span className="text-blue-600 text-xs font-bold">{(smoothness * 10000).toFixed(0)}</span>
                             </div>
                             <input
                                 type="range"
@@ -356,7 +359,7 @@ export function AutoRouteModule() {
                                 max="100"
                                 value={smoothness * 100000}
                                 onChange={(e) => setSmoothness(parseInt(e.target.value) / 100000)}
-                                className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                             />
                             <p className="text-xs text-slate-500 mt-2">
                                 Reduce jitter and clean up messy lines.
@@ -366,18 +369,18 @@ export function AutoRouteModule() {
                         {/* Snap to Road */}
                         <div
                             onClick={() => setSnapToRoad(!snapToRoad)}
-                            className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center justify-between ${snapToRoad ? 'bg-blue-900/20 border-blue-500' : 'bg-slate-900 border-slate-800 hover:border-slate-700'}`}
+                            className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center justify-between ${snapToRoad ? 'bg-blue-50 border-blue-500' : 'bg-slate-50 border-slate-200 hover:border-slate-300'}`}
                         >
                             <div className="flex items-center gap-3">
-                                <div className={`p-2 rounded-lg ${snapToRoad ? 'bg-blue-500 text-white' : 'bg-slate-800 text-slate-400'}`}>
+                                <div className={`p-2 rounded-lg ${snapToRoad ? 'bg-blue-600 text-white' : 'bg-slate-200 text-slate-500'}`}>
                                     <Zap size={18} />
                                 </div>
                                 <div>
-                                    <div className="font-medium text-white text-sm">Snap to Road</div>
+                                    <div className="font-medium text-slate-900 text-sm">Snap to Road</div>
                                     <div className="text-xs text-slate-500">Use AI to match roads</div>
                                 </div>
                             </div>
-                            <div className={`w-10 h-6 rounded-full relative transition-colors ${snapToRoad ? 'bg-blue-500' : 'bg-slate-700'}`}>
+                            <div className={`w-10 h-6 rounded-full relative transition-colors ${snapToRoad ? 'bg-blue-600' : 'bg-slate-300'}`}>
                                 <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all ${snapToRoad ? 'left-5' : 'left-1'}`}></div>
                             </div>
                         </div>
@@ -389,7 +392,7 @@ export function AutoRouteModule() {
                             onClick={analyzeWards}
                             disabled={!vehicleHistory || !wardBoundary || isProcessing}
                             className={`w-full py-3 rounded-xl font-medium flex items-center justify-center gap-2 shadow-lg transition-all ${!vehicleHistory || !wardBoundary || isProcessing
-                                ? 'bg-slate-800 text-slate-500 cursor-not-allowed'
+                                ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
                                 : 'bg-blue-600 hover:bg-blue-500 text-white shadow-blue-900/20'
                                 }`}
                         >
@@ -403,20 +406,20 @@ export function AutoRouteModule() {
 
                     {/* Step 3: Results */}
                     {stats && (
-                        <div className="p-4 bg-slate-800 rounded-xl mb-6 animate-in fade-in slide-in-from-bottom-4">
-                            <h3 className="font-medium text-white mb-3">Generation Results</h3>
+                        <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl mb-6 animate-in fade-in slide-in-from-bottom-4">
+                            <h3 className="font-medium text-slate-900 mb-3">Generation Results</h3>
                             <div className="space-y-2 text-sm">
                                 <div className="flex justify-between">
-                                    <span className="text-slate-400">Total Points:</span>
-                                    <span className="text-white">{stats.originalPoints}</span>
+                                    <span className="text-slate-500">Total Points:</span>
+                                    <span className="text-slate-900">{stats.originalPoints}</span>
                                 </div>
                                 <div className="flex justify-between">
-                                    <span className="text-slate-400">Points in Ward:</span>
-                                    <span className="text-green-400">{stats.filteredPoints}</span>
+                                    <span className="text-slate-500">Points in Ward:</span>
+                                    <span className="text-green-600">{stats.filteredPoints}</span>
                                 </div>
-                                <div className="flex justify-between pt-2 border-t border-slate-700 mt-2">
-                                    <span className="text-slate-400">Efficiency:</span>
-                                    <span className="text-blue-400">{Math.round((stats.filteredPoints / stats.originalPoints) * 100)}%</span>
+                                <div className="flex justify-between pt-2 border-t border-slate-200 mt-2">
+                                    <span className="text-slate-500">Efficiency:</span>
+                                    <span className="text-blue-600">{Math.round((stats.filteredPoints / stats.originalPoints) * 100)}%</span>
                                 </div>
                             </div>
                         </div>
@@ -434,7 +437,7 @@ export function AutoRouteModule() {
             </div>
 
             {/* Map Preview */}
-            <div className="flex-1 relative bg-slate-950 z-0">
+            <div className="flex-1 relative bg-slate-50 z-0">
                 <MapContainer
                     center={[51.505, -0.09]}
                     zoom={13}
@@ -474,18 +477,18 @@ export function AutoRouteModule() {
                 </MapContainer>
 
                 {/* Legend/Overlay */}
-                <div className="absolute top-4 right-4 bg-slate-900/90 backdrop-blur p-3 rounded-lg border border-slate-800 shadow-xl z-[1000] text-xs space-y-2">
+                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur p-3 rounded-lg border border-slate-200 shadow-xl z-[1000] text-xs space-y-2">
                     <div className="flex items-center gap-2">
                         <div className="w-3 h-3 rounded-full border border-red-500 bg-red-500/20"></div>
-                        <span className="text-slate-300">Ward Boundary</span>
+                        <span className="text-slate-600">Ward Boundary</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <div className="w-3 h-3 rounded-full bg-slate-500/50"></div>
-                        <span className="text-slate-300">Raw History</span>
+                        <span className="text-slate-600">Raw History</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <div className="w-8 h-1 bg-blue-500 rounded-full"></div>
-                        <span className="text-slate-300">Generated Route</span>
+                        <span className="text-slate-600">Generated Route</span>
                     </div>
                 </div>
             </div>
@@ -501,7 +504,7 @@ function MapController({ data }: { data: any[] }) {
         if (!data) return;
 
         const features: any[] = [];
-        
+
         for (const d of data) {
             if (!d) continue;
 

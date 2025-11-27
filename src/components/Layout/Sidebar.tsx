@@ -11,12 +11,12 @@ export function Sidebar({ activeModule, onModuleChange }: SidebarProps) {
 
     return (
         <div
-            className={`${isExpanded ? 'w-64' : 'w-20'} bg-slate-950 flex flex-col py-6 border-r border-slate-800 z-50 transition-all duration-300 ease-in-out relative`}
+            className={`${isExpanded ? 'w-64' : 'w-20'} bg-slate-50 flex flex-col py-6 border-r border-slate-200 z-50 transition-all duration-300 ease-in-out relative`}
         >
             {/* Toggle Button */}
             <button
                 onClick={() => setIsExpanded(!isExpanded)}
-                className="absolute -right-3 top-8 bg-slate-800 border border-slate-700 text-slate-400 hover:text-white rounded-full p-1 shadow-lg z-50"
+                className="absolute -right-3 top-8 bg-white border border-slate-200 text-slate-400 hover:text-slate-900 rounded-full p-1 shadow-lg z-50"
             >
                 {isExpanded ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
             </button>
@@ -28,8 +28,8 @@ export function Sidebar({ activeModule, onModuleChange }: SidebarProps) {
                 </div>
                 {isExpanded && (
                     <div className="overflow-hidden whitespace-nowrap animate-in fade-in slide-in-from-left-4 duration-300">
-                        <h1 className="font-bold text-white text-lg leading-tight">RouteMaster</h1>
-                        <p className="text-xs text-blue-400 font-medium tracking-wider">PRO EDITION</p>
+                        <h1 className="font-bold text-slate-900 text-lg leading-tight">RouteMaster</h1>
+                        <p className="text-xs text-blue-600 font-medium tracking-wider">PRO EDITION</p>
                     </div>
                 )}
             </div>
@@ -39,17 +39,19 @@ export function Sidebar({ activeModule, onModuleChange }: SidebarProps) {
                 <NavButton
                     active={activeModule === 'editor'}
                     onClick={() => onModuleChange('editor')}
-                    icon={<Map size={20} />}
+                    icon={<Map size={20} className="group-hover:text-blue-600 transition-colors" />}
                     label="Route Editor"
                     isExpanded={isExpanded}
+                    activeColor="bg-blue-600"
                 />
 
                 <NavButton
                     active={activeModule === 'autoroute'}
                     onClick={() => onModuleChange('autoroute')}
-                    icon={<Wand2 size={20} />}
+                    icon={<Wand2 size={20} className="group-hover:text-purple-600 transition-colors" />}
                     label="AI Auto Route"
                     isExpanded={isExpanded}
+                    activeColor="bg-purple-600"
                 />
             </div>
 
@@ -57,17 +59,25 @@ export function Sidebar({ activeModule, onModuleChange }: SidebarProps) {
             <div className="mt-auto flex flex-col gap-2 w-full px-3">
                 <NavButton
                     onClick={() => { }}
-                    icon={<Settings size={20} />}
+                    icon={<Settings size={20} className="group-hover:text-slate-700 transition-colors" />}
                     label="Settings"
                     isExpanded={isExpanded}
                 />
                 <NavButton
                     onClick={() => { }}
-                    icon={<LogOut size={20} />}
+                    icon={<LogOut size={20} className="group-hover:text-red-600 transition-colors" />}
                     label="Logout"
                     isExpanded={isExpanded}
                 />
             </div>
+
+            {/* Credits */}
+            {isExpanded && (
+                <div className="px-6 py-4 mt-2 text-xs text-slate-400 border-t border-slate-200 mx-4">
+                    <p>Created by</p>
+                    <p className="font-medium text-slate-600">Yuvraj Singh Tomar</p>
+                </div>
+            )}
         </div>
     );
 }
@@ -78,23 +88,26 @@ interface NavButtonProps {
     icon: React.ReactNode;
     label: string;
     isExpanded: boolean;
+    activeColor?: string;
 }
 
-function NavButton({ active, onClick, icon, label, isExpanded }: NavButtonProps) {
+function NavButton({ active, onClick, icon, label, isExpanded, activeColor = 'bg-blue-600' }: NavButtonProps) {
     return (
         <button
             onClick={onClick}
             className={`
                 flex items-center gap-3 p-3 rounded-xl transition-all duration-200 group relative
                 ${active
-                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20'
-                    : 'text-slate-400 hover:bg-slate-900 hover:text-white hover:bg-slate-800'
+                    ? `${activeColor} text-white shadow-lg shadow-blue-900/20`
+                    : 'text-slate-500 hover:bg-white hover:shadow-md hover:scale-105'
                 }
                 ${isExpanded ? 'justify-start' : 'justify-center'}
             `}
             title={!isExpanded ? label : undefined}
         >
-            <div className="flex-shrink-0">{icon}</div>
+            <div className={`flex-shrink-0 transition-transform duration-300 ${!active && 'group-hover:rotate-12 group-hover:scale-110'}`}>
+                {icon}
+            </div>
 
             {isExpanded && (
                 <span className="font-medium whitespace-nowrap overflow-hidden animate-in fade-in slide-in-from-left-2">
@@ -104,7 +117,7 @@ function NavButton({ active, onClick, icon, label, isExpanded }: NavButtonProps)
 
             {/* Active Indicator (Collapsed) */}
             {!isExpanded && active && (
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-white/20 rounded-r-full" />
+                <div className={`absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 ${activeColor} rounded-r-full`} />
             )}
         </button>
     );
