@@ -498,16 +498,21 @@ function MapController({ data }: { data: any[] }) {
     const map = useMap();
 
     React.useEffect(() => {
+        if (!data) return;
+
         const features: any[] = [];
-        data.forEach(d => {
-            if (d) {
-                if (d.type === 'FeatureCollection') {
+        
+        for (const d of data) {
+            if (!d) continue;
+
+            if (d.type === 'FeatureCollection') {
+                if (d.features && Array.isArray(d.features)) {
                     features.push(...d.features);
-                } else {
-                    features.push(d);
                 }
+            } else {
+                features.push(d);
             }
-        });
+        }
 
         if (features.length > 0) {
             const group = L.featureGroup(features.map(f => L.geoJSON(f)));
