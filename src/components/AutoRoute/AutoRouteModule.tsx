@@ -431,69 +431,70 @@ export function AutoRouteModule() {
                         </button>
                     )}
                 </div>
+            </div>
 
-                {/* Map Preview */}
-                <div className="flex-1 relative bg-slate-950 z-0">
-                    <MapContainer
-                        center={[51.505, -0.09]}
-                        zoom={13}
-                        className="w-full h-full"
-                    >
-                        <MapController data={[vehicleHistory, wardBoundary]} />
-                        <TileLayer
-                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        />
+            {/* Map Preview */}
+            <div className="flex-1 relative bg-slate-950 z-0">
+                <MapContainer
+                    center={[51.505, -0.09]}
+                    zoom={13}
+                    className="w-full h-full"
+                >
+                    <MapController data={[vehicleHistory, wardBoundary]} />
+                    <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
 
-                        {/* Render Ward Boundary */}
-                        {wardBoundary && (
-                            <>
-                                <GeoJSON
-                                    data={wardBoundary}
-                                    style={{ color: '#ef4444', weight: 2, fillOpacity: 0.05, dashArray: '5, 5' }}
-                                />
-                                {/* Render Buffer Visualization if > 0 */}
-                                {bufferRadius > 0 && (
-                                    <GeoJSON
-                                        key={`buffer-${bufferRadius}`} // Force re-render on radius change
-                                        data={turf.buffer(wardBoundary, bufferRadius / 1000, { units: 'kilometers' })}
-                                        style={{ color: '#3b82f6', weight: 1, fillOpacity: 0.05, dashArray: '2, 4', opacity: 0.5 }}
-                                    />
-                                )}
-                            </>
-                        )}
-
-                        {/* Render Generated Route */}
-                        {generatedRoute && (
+                    {/* Render Ward Boundary */}
+                    {wardBoundary && (
+                        <>
                             <GeoJSON
-                                data={generatedRoute}
-                                style={{ color: '#3b82f6', weight: 4, opacity: 0.9 }}
+                                data={wardBoundary}
+                                style={{ color: '#ef4444', weight: 2, fillOpacity: 0.05, dashArray: '5, 5' }}
                             />
-                        )}
-                    </MapContainer>
+                            {/* Render Buffer Visualization if > 0 */}
+                            {bufferRadius > 0 && (
+                                <GeoJSON
+                                    key={`buffer-${bufferRadius}`} // Force re-render on radius change
+                                    data={turf.buffer(wardBoundary, bufferRadius / 1000, { units: 'kilometers' }) as any}
+                                    style={{ color: '#3b82f6', weight: 1, fillOpacity: 0.05, dashArray: '2, 4', opacity: 0.5 }}
+                                />
+                            )}
+                        </>
+                    )}
 
-                    {/* Legend/Overlay */}
-                    <div className="absolute top-4 right-4 bg-slate-900/90 backdrop-blur p-3 rounded-lg border border-slate-800 shadow-xl z-[1000] text-xs space-y-2">
-                        <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full border border-red-500 bg-red-500/20"></div>
-                            <span className="text-slate-300">Ward Boundary</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full bg-slate-500/50"></div>
-                            <span className="text-slate-300">Raw History</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <div className="w-8 h-1 bg-blue-500 rounded-full"></div>
-                            <span className="text-slate-300">Generated Route</span>
-                        </div>
+                    {/* Render Generated Route */}
+                    {generatedRoute && (
+                        <GeoJSON
+                            data={generatedRoute}
+                            style={{ color: '#3b82f6', weight: 4, opacity: 0.9 }}
+                        />
+                    )}
+                </MapContainer>
+
+                {/* Legend/Overlay */}
+                <div className="absolute top-4 right-4 bg-slate-900/90 backdrop-blur p-3 rounded-lg border border-slate-800 shadow-xl z-[1000] text-xs space-y-2">
+                    <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 rounded-full border border-red-500 bg-red-500/20"></div>
+                        <span className="text-slate-300">Ward Boundary</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 rounded-full bg-slate-500/50"></div>
+                        <span className="text-slate-300">Raw History</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <div className="w-8 h-1 bg-blue-500 rounded-full"></div>
+                        <span className="text-slate-300">Generated Route</span>
                     </div>
                 </div>
             </div>
-            );
+        </div>
+    );
 }
 
-            // Helper component to fit bounds
-            function MapController({data}: {data: any[] }) {
+// Helper component to fit bounds
+function MapController({ data }: { data: any[] }) {
     const map = useMap();
 
     React.useEffect(() => {
@@ -501,9 +502,9 @@ export function AutoRouteModule() {
         data.forEach(d => {
             if (d) {
                 if (d.type === 'FeatureCollection') {
-                features.push(...d.features);
+                    features.push(...d.features);
                 } else {
-                features.push(d);
+                    features.push(d);
                 }
             }
         });
@@ -518,5 +519,5 @@ export function AutoRouteModule() {
         }
     }, [data, map]);
 
-            return null;
+    return null;
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Map, Wand2, Settings, LogOut, ChevronLeft, ChevronRight, Menu } from 'lucide-react';
+import { Map, Wand2, Settings, LogOut, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface SidebarProps {
     activeModule: 'editor' | 'autoroute';
