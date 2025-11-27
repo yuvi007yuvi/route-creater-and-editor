@@ -449,6 +449,24 @@ export function AutoRouteModule() {
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
 
+                    {/* Render Vehicle History */}
+                    {vehicleHistory && (
+                        <GeoJSON
+                            key="vehicle-history"
+                            data={vehicleHistory}
+                            pointToLayer={(_feature, latlng) => (
+                                L.circleMarker(latlng, {
+                                    radius: 4,
+                                    fillColor: '#64748b',
+                                    color: '#fff',
+                                    weight: 1,
+                                    opacity: 1,
+                                    fillOpacity: 0.8
+                                })
+                            )}
+                        />
+                    )}
+
                     {/* Render Ward Boundary */}
                     {wardBoundary && (
                         <>
